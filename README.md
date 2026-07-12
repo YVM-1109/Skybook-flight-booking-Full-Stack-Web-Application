@@ -15,7 +15,7 @@ A full-stack flight booking application with **real-time seat locking**, **Razor
 | **Razorpay Checkout** | Secure payment via Razorpay; booking only confirms on verified `payment.captured` webhook |
 | **E-Tickets** | Instant e-ticket view/print after confirmation |
 | **My Bookings** | User dashboard with status badges (PENDING / CONFIRMED / CANCELLED) |
-| **Admin Dashboard** | Create flights, view all flights/bookings, update flight status |
+| **Admin Dashboard (Postman CRUD)** | Create flights, view all flights/bookings, update flight status |
 | **Security** | JWT (15 min access / 7 day refresh), BCrypt, rate limiting (5 req/min per IP on auth), account lockout (5 failures = 15 min), security headers (HSTS, X-Frame-Options, CSP-ready) |
 
 ---
