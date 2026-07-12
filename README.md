@@ -472,14 +472,4 @@ VITE_API_BASE_URL=http://localhost:8080/api
 
 ---
 
-## 🙏 Acknowledgments
-
-- **Spring Boot** team for an excellent framework
-- **Razorpay** for developer-friendly payment APIs
-- **Bucket4j** for elegant rate limiting
-- **React Router v6** & **Vite** for the frontend DX
-- All open-source libraries listed in `pom.xml` and `package.json`
-
----
-
 > **Built with care for learning and demonstration.** Not a production-ready airline system — but a solid foundation for one.
