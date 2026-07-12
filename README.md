@@ -472,12 +472,6 @@ VITE_API_BASE_URL=http://localhost:8080/api
 
 ---
 
-## 📄 License
-
-MIT License — see [LICENSE](LICENSE) for details.
-
----
-
 ## 🙏 Acknowledgments
 
 - **Spring Boot** team for an excellent framework
