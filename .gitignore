@@ -1,0 +1,50 @@
+# Maven
+target/
+*.jar
+*.war
+*.ear
+*.class
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment / Secrets
+*.env
+*.env.local
+*.env.*.local
+application-local.properties
+application-*.properties.local
+
+# Frontend
+flight-booking-app-frontend/node_modules/
+flight-booking-app-frontend/dist/
+flight-booking-app-frontend/.env
+flight-booking-app-frontend/.env.local
+
+# Logs
+*.log
+logs/
+
+# Test reports
+target/surefire-reports/
+target/failsafe-reports/
+
+# Coverage
+target/site/jacoco/
+
+# Misc
+*.orig
+*.bak

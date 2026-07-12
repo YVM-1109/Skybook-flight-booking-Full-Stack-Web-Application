@@ -1,0 +1,9 @@
+# Copy this file to application-local.properties and fill in your real values.
+# Run locally with: mvn spring-boot:run -Dspring-boot.run.profiles=local
+# This file IS committed to GitHub. application-local.properties is NOT.
+
+spring.datasource.password=YOUR_MYSQL_ROOT_PASSWORD
+app.jwt.secret=YOUR_JWT_SECRET_MINIMUM_256_BITS
+app.razorpay.key-id=rzp_test_YOUR_KEY_ID
+app.razorpay.key-secret=YOUR_RAZORPAY_SECRET
+app.razorpay.webhook-secret=YOUR_WEBHOOK_SECRET

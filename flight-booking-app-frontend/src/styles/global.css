@@ -1,0 +1,513 @@
+/* =========================================================
+   DESIGN TOKENS
+   Palette: deep aviation navy + confident blue + a warm coral
+   CTA (the one accessory this design keeps). Signature element:
+   a boarding-pass "torn ticket" motif reused for flight cards,
+   the booking summary, and the e-ticket — it's the one visual
+   idea that's specific to "flight booking" rather than generic.
+   ========================================================= */
+:root {
+  --navy-950: #0a1230;
+  --navy-900: #0d1b4c;
+  --navy-800: #14245e;
+  --blue-600: #2451e0;
+  --blue-500: #3b6bff;
+  --blue-100: #e8eefe;
+  --sky-400: #35c2e0;
+  --coral-500: #ff6849;
+  --coral-600: #e94f30;
+
+  --bg: #f5f7fc;
+  --surface: #ffffff;
+  --border: #e3e8f4;
+  --border-strong: #cbd4ea;
+
+  --text-900: #101832;
+  --text-700: #2b3352;
+  --text-600: #4b5573;
+  --text-400: #8792ac;
+  --text-inverse: #f4f7ff;
+
+  --success: #1fa97b;
+  --success-bg: #e7f8f1;
+  --danger: #e0433b;
+  --danger-bg: #fdecea;
+  --warning: #b8790a;
+  --warning-bg: #fff4e0;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --shadow-sm: 0 1px 3px rgba(13, 27, 76, 0.08);
+  --shadow-md: 0 8px 24px rgba(13, 27, 76, 0.10);
+  --shadow-lg: 0 20px 48px rgba(10, 18, 48, 0.16);
+
+  --font-display: 'Poppins', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-900);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--navy-900); margin: 0; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font-body); cursor: pointer; }
+input, select, textarea { font-family: var(--font-body); }
+
+:focus-visible {
+  outline: 2.5px solid var(--blue-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  white-space: nowrap;
+}
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-primary {
+  background: var(--coral-500);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(255, 104, 73, 0.35);
+}
+.btn-primary:hover:not(:disabled) { background: var(--coral-600); transform: translateY(-1px); }
+.btn-secondary {
+  background: var(--blue-600);
+  color: #fff;
+}
+.btn-secondary:hover:not(:disabled) { background: var(--navy-900); }
+.btn-ghost {
+  background: transparent;
+  color: var(--blue-600);
+  border: 1.5px solid var(--border-strong);
+}
+.btn-ghost:hover:not(:disabled) { border-color: var(--blue-600); background: var(--blue-100); }
+.btn-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+.btn-danger:hover:not(:disabled) { background: #fadedb; }
+.btn-block { width: 100%; }
+.btn-sm { padding: 9px 16px; font-size: 13.5px; }
+
+/* =========================================================
+   FORM ELEMENTS
+   ========================================================= */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-600);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.field input, .field select {
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  color: var(--text-900);
+  background: #fff;
+  transition: border-color 0.12s ease;
+}
+.field input:focus, .field select:focus {
+  border-color: var(--blue-500);
+  outline: none;
+}
+.field-error {
+  border-color: var(--danger) !important;
+}
+.error-text { color: var(--danger); font-size: 12.5px; font-weight: 500; }
+
+/* =========================================================
+   CARDS / SURFACES
+   ========================================================= */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.card-pad { padding: 24px; }
+
+/* Boarding-pass motif: a card with a perforated notch cut into each side
+   and a dashed divider, used for flight result cards, the booking
+   summary and the e-ticket. */
+.ticket-card {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  overflow: hidden;
+}
+.ticket-card::before,
+.ticket-card::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: var(--bg);
+  border-radius: 50%;
+  right: 216px;
+  z-index: 2;
+}
+.ticket-card::before { top: -11px; }
+.ticket-card::after { bottom: -11px; }
+.ticket-main { padding: 22px 26px; }
+.ticket-stub {
+  width: 216px;
+  border-left: 2px dashed var(--border-strong);
+  background: var(--navy-900);
+  color: var(--text-inverse);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+@media (max-width: 640px) {
+  .ticket-card { grid-template-columns: 1fr; }
+  .ticket-card::before, .ticket-card::after { display: none; }
+  .ticket-stub {
+    border-left: none;
+    border-top: 2px dashed rgba(255,255,255,0.25);
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   BADGES / STATUS
+   ========================================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.badge-success { background: var(--success-bg); color: var(--success); }
+.badge-warning { background: var(--warning-bg); color: var(--warning); }
+.badge-danger { background: var(--danger-bg); color: var(--danger); }
+.badge-neutral { background: var(--blue-100); color: var(--blue-600); }
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--navy-950);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 21px;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.brand-mark {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--sky-400), var(--blue-600));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+}
+.nav-links { display: flex; align-items: center; gap: 6px; }
+.nav-link {
+  color: rgba(244,247,255,0.78);
+  font-weight: 600;
+  font-size: 14.5px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.nav-link:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.nav-link.active { color: #fff; background: rgba(255,255,255,0.1); }
+.nav-cta {
+  background: var(--coral-500);
+  color: #fff !important;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.nav-cta:hover { background: var(--coral-600); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  background: var(--navy-950);
+  color: rgba(244,247,255,0.65);
+  margin-top: 64px;
+  padding: 36px 0 28px;
+  font-size: 13.5px;
+}
+.footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer a { color: var(--sky-400); font-weight: 600; }
+.footer a:hover { text-decoration: underline; }
+
+/* =========================================================
+   HERO / SEARCH
+   ========================================================= */
+.hero {
+  background:
+    radial-gradient(1100px 420px at 15% -10%, rgba(53,194,224,0.28), transparent 60%),
+    linear-gradient(160deg, var(--navy-950), var(--navy-800) 70%);
+  padding: 56px 0 130px;
+  color: #fff;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.16);
+  padding: 6px 14px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--sky-400);
+  margin-bottom: 18px;
+}
+.hero h1 {
+  color: #fff;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.12;
+  max-width: 640px;
+  letter-spacing: -0.015em;
+}
+.hero p.sub {
+  color: rgba(244,247,255,0.72);
+  font-size: 16.5px;
+  margin-top: 14px;
+  max-width: 520px;
+}
+
+.search-panel {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 26px;
+  margin-top: -78px;
+  position: relative;
+  z-index: 5;
+}
+.search-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 0.8fr 0.8fr auto;
+  gap: 14px;
+  align-items: end;
+}
+.search-swap {
+  align-self: center;
+  justify-self: center;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  color: var(--blue-600);
+  position: relative;
+  top: 12px;
+}
+@media (max-width: 980px) {
+  .search-grid { grid-template-columns: 1fr 1fr; }
+  .search-panel { margin-top: -50px; }
+  .hero { padding-bottom: 90px; }
+}
+@media (max-width: 560px) {
+  .search-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   SECTION HEADINGS / MISC LAYOUT
+   ========================================================= */
+.page-section { padding: 48px 0; }
+.section-head { margin-bottom: 24px; }
+.section-head h2 { font-size: 26px; }
+.section-head p { color: var(--text-600); margin-top: 6px; }
+.muted { color: var(--text-600); }
+.dim { color: var(--text-400); }
+.divider { height: 1px; background: var(--border); border: none; margin: 20px 0; }
+.stack { display: flex; flex-direction: column; gap: 16px; }
+.row { display: flex; align-items: center; gap: 10px; }
+.row-between { display: flex; align-items: center; justify-content: space-between; }
+.spinner {
+  width: 20px; height: 20px;
+  border: 2.5px solid var(--border);
+  border-top-color: var(--blue-600);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.page-loader { display: flex; align-items: center; justify-content: center; padding: 100px 0; gap: 12px; color: var(--text-600); }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-600);
+}
+.empty-state h3 { margin-bottom: 8px; }
+
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+}
+.alert-danger { background: var(--danger-bg); color: var(--danger); }
+.alert-success { background: var(--success-bg); color: var(--success); }
+.alert-info { background: var(--blue-100); color: var(--blue-600); }
+
+/* =========================================================
+   AUTH PAGES
+   ========================================================= */
+.auth-shell {
+  min-height: calc(100vh - 68px - 96px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+}
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 34px 32px;
+}
+.auth-card h1 { font-size: 24px; margin-bottom: 6px; }
+.auth-card .sub { color: var(--text-600); font-size: 14.5px; margin-bottom: 24px; }
+
+/* =========================================================
+   FLIGHT RESULT CARD
+   ========================================================= */
+.flight-route {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  margin: 14px 0;
+}
+.flight-time { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--navy-900); }
+.flight-code { font-size: 13px; color: var(--text-600); font-weight: 600; margin-top: 2px; }
+.flight-path { text-align: center; }
+.flight-path .line { height: 2px; background: var(--border-strong); position: relative; margin: 8px 0 4px; }
+.flight-path .line::after {
+  content: "✈";
+  position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+  color: var(--blue-600); font-size: 14px;
+}
+.flight-duration { font-size: 12.5px; color: var(--text-400); font-weight: 600; }
+.airline-row { display: flex; align-items: center; gap: 10px; }
+.airline-logo {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: var(--blue-100); color: var(--blue-600);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px;
+}
+
+/* =========================================================
+   SEAT MAP
+   ========================================================= */
+.seat-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 18px; }
+.seat-legend-item { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-600); }
+.legend-swatch { width: 16px; height: 16px; border-radius: 4px; }
+.seat-cabin {
+  background: #fbfcff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px 18px;
+}
+.seat-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 8px; }
+.seat-aisle-gap { width: 22px; }
+.seat {
+  width: 40px; height: 40px;
+  border-radius: 9px 9px 4px 4px;
+  border: 1.5px solid var(--border-strong);
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  color: var(--text-600);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.seat:hover:not(.seat-booked):not(.seat-locked) { transform: translateY(-2px); border-color: var(--blue-500); }
+.seat-business { background: var(--blue-100); border-color: #b9caf7; color: var(--navy-900); }
+.seat-selected { background: var(--coral-500); border-color: var(--coral-600); color: #fff; }
+.seat-booked, .seat-locked { background: var(--border); border-color: var(--border); color: var(--text-400); cursor: not-allowed; }
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+.admin-tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
+.admin-tab {
+  padding: 12px 4px; margin-right: 22px;
+  font-weight: 600; font-size: 14.5px; color: var(--text-600);
+  border-bottom: 2.5px solid transparent;
+}
+.admin-tab.active { color: var(--blue-600); border-color: var(--blue-600); }
+table.data-table { width: 100%; border-collapse: collapse; background: #fff; }
+table.data-table th {
+  text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-400); padding: 12px 16px; border-bottom: 1.5px solid var(--border);
+}
+table.data-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14.5px; }
+table.data-table tr:hover td { background: #fafbff; }
+
+/* =========================================================
+   STEPPER
+   ========================================================= */
+.stepper { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+.step { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 700; color: var(--text-400); }
+.step-dot {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+.step.done .step-dot { background: var(--success); border-color: var(--success); color: #fff; }
+.step.active .step-dot { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
+.step.active { color: var(--navy-900); }
+.step-line { flex: 1; height: 2px; background: var(--border-strong); max-width: 60px; }

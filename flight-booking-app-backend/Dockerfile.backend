@@ -1,0 +1,18 @@
+# Build stage
+FROM maven:3.9-eclipse-temurin-17 AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn -q -DskipTests package
+
+# Runtime stage
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=builder /app/target/flight-booking-api-1.0.0.jar app.jar
+
+# Non-root user
+RUN addgroup -g 1000 -S appgroup && adduser -u 1000 -S appuser -G appgroup
+USER appuser
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
